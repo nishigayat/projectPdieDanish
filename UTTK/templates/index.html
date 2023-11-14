@@ -1,0 +1,145 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Selection</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column; /* Center items vertically */
+        height: 100vh;
+      }
+
+      .container {
+        /* Set a specific width for the container to match the image width */
+        width: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .header-image {
+        /* Add styling for the image container */
+        width: 100%;
+        text-align: center;
+        margin-bottom: 50px; /* Adjust as needed */
+      }
+
+      .header-image img {
+        /* Style for the image itself */
+        max-width: 100%; /* Ensure the image doesn't exceed the container width */
+        height: auto; /* Maintain the image's aspect ratio */
+      }
+
+      .role-selection-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Center text in the container */
+      }
+
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .role-select {
+        margin: 15px 0;
+      }
+
+      label {
+        font-size: 16px;
+        color: #333;
+      }
+
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+      }
+
+      .login-button {
+        margin-top: 15px;
+      }
+
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+</head>
+<body>
+
+  <!-- Add the common container -->
+  <div class="container">
+    <!-- Add the image container at the top of the page -->
+    <div class="header-image">
+      <img src="{% static 'indexpage.png' %}" alt="Your Image Description">
+    </div>
+
+    <div class="role-selection-container">
+        <h2>Select Your Role</h2>
+        <form id="roleSelectionForm" method="post">
+            <div class="role-select">
+                <label for="userRole">Choose a Role:</label>
+                <select name="userRole" id="userRole" required>
+                    <option value="uttk_member">UTTK Member</option>
+                    <option value="lecturer">Lecturer</option>
+                    <!-- Add more role options as needed -->
+                </select>
+            </div>
+            <div class="login-button">
+                <input type="submit" value="Login">
+            </div>
+        </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('roleSelectionForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var selectedRole = document.getElementById('userRole').value;
+
+      var redirectUrls = {
+        'uttk_member': '{% url "uttk_member_login" %}',
+        'lecturer': '{% url "lecturer_login" %}'
+      };
+
+      if (redirectUrls.hasOwnProperty(selectedRole)) {
+        window.location.href = redirectUrls[selectedRole];
+      }
+    });
+  </script>
+
+</body>
+</html>

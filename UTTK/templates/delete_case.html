@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Case</title>
+    <style>
+        body {
+            background-color: #F2F2F2;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+        }
+
+        .confirmation {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgb(50, 53, 50);
+        }
+
+        .confirmation-text {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .confirmation-button {
+            background-color: rgb(50, 53, 50);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .confirmation-button.cancel {
+            background-color: rgb(50, 53, 50);
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <div class="container">
+      <h1 style="color: black;">Delete Case</h1>
+      <div class="confirmation">
+        <p class="confirmation-text">Are you sure you want to delete this case?</p>
+        <form action="{% url 'delete_case' case.caseCode %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="confirmation-button">Delete</button>
+        </form>
+        <br><br>
+        <a href="{% url 'registeroffences_list' %}" class="confirmation-button cancel">Cancel</a>
+      </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Case</title>
+    <style>
+        body {
+            background-color: #F2F2F2;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-container {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        .form-container form {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+        }
+
+        .submit-button {
+            background-color: rgb(5, 5, 156);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        .cancel-button {
+            background-color: #FF3333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <div class="container mt-5">
+      <h1 style="color: black;">Update Case</h1>
+      <div class="form-container">
+        <form action="#" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="caseCode">Case Code:</label>
+            <input type="text" id="caseCode" name="caseCode" value="{{ case.caseCode }}" required>
+          </div>
+          <div class="form-group">
+            <label for="caseClass">Case Class:</label>
+            <input type="text" id="caseClass" name="caseClass" value="{{ case.caseClass }}" required>
+          </div>
+          <div class="form-group">
+            <label for="offences">Offences:</label>
+            <textarea id="offences" name="offences" rows="4" required>{{ case.offences }}</textarea>
+          </div>
+          <div class="form-group">
+            <label for="punishment">Punishment:</label>
+            <textarea id="punishment" name="punishment" rows="4" required>{{ case.punishment }}</textarea>
+          </div>
+          <div class="form-group">
+            <label for="registerText">Comment:</label>
+            <textarea id="registerText" name="registerText" rows="4" required>{{ case.registerText }}</textarea>
+          </div>
+          <button type="submit" class="submit-button">Update</button>
+        </form>
+
+        <a href="{% url 'registeroffences_list' %}">Back to List</a>
+      </div>
+    </div>
+</body>
+</html>

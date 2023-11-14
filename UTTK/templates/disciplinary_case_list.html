@@ -1,0 +1,151 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disciplinary Case List</title>
+    <style>
+        body {
+            background-color: #F2F2F2;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            z-index: 1; /* Ensure the navbar is above other content */
+        }
+
+        .navbar a {
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 80px; /* Add some margin to create space for the title */
+        }
+
+        table {
+            width: 70%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgb(50, 53, 50);
+            color: white;
+        }
+
+        h2 {
+            font-family: 'Arial', sans-serif;
+            color: black;
+        }
+
+        /* Style for Update and Delete buttons */
+        .btn-primary {
+            background-color: #8d8d8d;
+            color: white;
+            border: none;
+            padding: 7px 15px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-danger {
+            background-color: #8d8d8d;
+            color: white;
+            border: none;
+            padding: 7px 15px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger:hover {
+            background-color: #FF0000;
+        }
+    </style>
+</head>
+<body>
+  {% load static %}
+  {% block content %}
+
+  <div class="navbar">
+    <a href="{% url 'registeroffencesform' %}">Register Offences</a>
+    <a href="{% url 'registeroffences_list' %}">View Offences</a>
+    <a href="{% url 'disciplinarycase' %}">Register Disciplinary Case</a>
+    <a href="{% url 'disciplinary_case_list' %}">View Disciplinary Case</a>
+  </div>
+  
+  <div class="container">
+    <h2>Disciplinary Case List</h2>
+    <table class="table table-striped table-bordered mt-5" style="background-color: white;">
+      <thead>
+        <tr>
+          <th scope="col">Student Name</th>
+          <th scope="col">Student ID</th>
+          <th scope="col">Student Class</th>
+          <th scope="col">Case Code</th>
+          <th scope="col">Disciplinary Text</th>
+          <th scope="col">Disciplinary Date</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for case in cases %}
+        <tr>
+          <td>{{ case.studentName }}</td>
+          <td>{{ case.studentID.studentID }}</td> {# Access the related field, e.g., studentID is the related field name #}
+          <td>{{ case.studentClass }}</td>
+          <td>{{ case.caseCode.caseCode }}</td> {# Access the related field, e.g., caseCode is the related field name #}
+          <td>{{ case.disciplinaryText }}</td>
+          <td>{{ case.disciplinaryDate }}</td>
+          <td>
+            <a href="{% url 'delete_disciplinary_case' case.id %}" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7">No disciplinary cases found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <br>
+  <br>
+  <a href="{% url 'uttkHome' %}" class="btn btn-primary">Back</a>
+  {% endblock %}
+</body>
+</html>
